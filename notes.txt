@@ -1,0 +1,288 @@
+*	OSNOVNI KOKCEPTI U OOP *
+1. ENKAPSULACIJA = strukturu treba da bude sakrivena od spoljnog sveta 
+2. INTERFEJSI = korisnik moze da komunicira preko dostupnih javnih metoda 
+3. POLIMORFIZAM = jednom napisan kod mogu da upotrebljavam nad razilcitim objektima
+4. NASLEDJIVANJE = predstavlja hijerarhijski polimorvisam u kojem se uvodi parcijalna relacija `jeste`
+	- B --> A = B nasledjuje A, to znaci da je moja klasa B isto sto i A i plus vise od toga
+
+*	SOLID PRINCIPI = PRINCIPI OOP DIZAJNA	*
+1. 	PRINCIP JEDINSTVENE ODGOVORNOSTI  =  klasa treba da ima samo jednu odgovornos; klasa treba da ima samo jedan razlog da se menja
+2. 	PRINCIP OTVORENOSTI I ZATVORENOSTI = otvoreni smo za prosirivanje, zatvoreni smo za menjanje
+3. 	PRINCIP ZAMENLJIVOSTI = podtipovi moraju da mogu da zamene bazne tipove
+4. 	PRINCIP RAZDVAJANJE INTERFEJSA = korisnik ne treba da zavisi od interfejsa koji ne koristi
+5. 	PRINCIP INVERZNE ZAVISNOSTI = modul visokog nivoa ne sme da zavisi od modula niskog nivoa, vec samo od njegove apstrakcije
+
+*	PRINCIPI DODELJIVANJA ODGOVORNOSTI	*
+1. 	INFORMACIONI EKSPERT = odgoovornost dodeljivati onoj klasi koja ima sve neophodne informacije o tom poslu
+2. 	STVARALAC = kako logicki podeliti odgovornosti u okviru sistema
+3. 	VISOKA KOHEZIJA = dodeljivati odgovornosti tako da kohezija ostane visoka (celina treba da bude zaduzena za jedan posao)
+4. 	NISKA SPREGNUTNOST = dodeljivati odgovornosti tako da spregnutost ostane niska
+5. 	KONTROLER = odgovornost za obradu sistemskih poruka dodeliti klasi koja je podsistem ili ce u nekom trenutku pojaviti sistemski dogadjaj
+6. 	POLIMORFIZAM = kada se neka vrsta ponasanja menja prema tipovima, onda je potrebno odgovornost za odg ponasanje raspodeliti po tipovima uz pomoc polimorfizma
+7. 	IZMISLJOTINA = tesno povezan i zaokruzen skup odgovornosti dodeliti vestacki uvedenoj klasi koja ne predstavlja koncept iz domena problema koji se resava
+8. 	INDIREKCIJA = dodeliti odgovornost objektu koji je posrednik medju drugim komponentama tkd ne budu medjusobno spregnuti
+9. 	IZOLOVANE PROMENLJIVOSTI = dodeljivati odgovornosti tkd se oblikuje stabilan interfejs 
+
+*	PRINCIP OBLIKOVANJA CELINA	*
+1. 	PRINCIP EKVIVALENTNOSTI IZDANJA I UPOTREBE = granula ponovljive upotrebe je granula objavljivanja
+2. 	PRINCIP ZAJEDNICKE ZATVORENOSTI = celine treba da budu zajedno i podjednako zatvoreni na istu vrstu promena
+3. 	PRINCIP ZAJEDNICKE UPOTREBE = klase u paketu se koriste zajedno. ako se koristi jedna klasa u paketu, onda se kosriste sve
+4. 	PRINCIP STABILNE ZAVISNOSTI = smer zavisnosti treba da se poklapa sa smerom porasta stabilnosti. (zavisnost izmedju elemenata treba da ide od manje stabilnih ka vise stabilnim)
+5. 	PRINCIP STAVILNE APSTRAKCIJE = celina treba da bude apstraktna onoliko koliko je stabilna. apstraktni delovi ne treba da zavise od nestabilnih delova programa
+6. 	PRINCIP ACIKLICKIH ZAVISNOSTI = ne dopustati ciklicne zavisnosti
+
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+- Niske nikada ne treba porediti sa `==` vec sa equals
+	- Sve sto nije primitivni tip, to su objekti i sve se salje preko pokazivaca, tj. reference 
+	- sa `==` poredimo samo da li su reference iste (tj. pokazivaci) u memoriji 
+	- 	ako napravimo dva puta istu konstantu, JVM je dovoljno pametna da ne napravi istu konstantu
+		dva puta, vec pokazuje na istu memoriju 
+	-	ako hocemo da poredimo niske po onim sto zaista pise u njima koristimo metod `equals`
+
+
+-	KLASE -
+
+-	Klasa predstavlja sablon po kojem mozemo da pravimo odredjene objekte, instance, odnosno
+	odredjene konkretne stvari
+
+
+-	ako stoji `public` to znaci da mogu da vidim svuda unutar svog projekta (svi fajlovi mogu da vide
+	kalsu Student oni znaju da to postoji) ime klase mora da se poklapa sa imenom fajla (ono sta izgovaram),
+	* `protected` = u okviru istog paketa svi mogu da vide to, van tog paketa je nevidljivo (u okviru ucionice mozemo da vidimo sta ko nosi, van ucionice ne mozemo)
+	* `private` = promenljiva je vidljiva samo unutra klase gde je deklarisana (samo unutar ovog fajla mozes da vidis) (moje misli)
+
+-	ALT + INSERT = for generating
+
+-	pozivanje preko instance to nije `static`
+-	ako hocu da pozivam kao obicnu funkciju tada stavljam `static` 
+
+-	prilikom pravljenja bilo koje klase, pozeljno je da imamo defaultni (podrazumevani) konstruktor
+	on predstavlja objekat koji nema nikakve konkretne podatke, samo zauzmemo memoriju
+
+-	`this` se odnosi na konkretnu instancu koju pravimo
+
+-	metode su funkcije koje se definisu u okviru klase, oni definisu ponasanje mog objekta
+
+-	konstruktori nam sluse da samo definisemo konkretnu instancu sa odredjenim podacima
+
+-	atributi definisu sta objekat ima, opisuju ga
+
+-	kako bih mogla da pristupim `private` atributima neke klase, to radim uz pomoc `getter`-a i `setter`-a 
+	`getter` = dogvati mi vrednost odredjenog atributa (hocu neku misao da ti cujem)
+	`setter` = postavi mi novu vrednost odredjenog atributa ()
+	uvek su `public`
+
+-	isNesto = da li nesto vazi; geter za boolean promenljivu 
+
+-	polja stavljamo da budu `private` jer ne zelimo da spoljni svet zna ista o tome; u vecini situacija
+-	kako spoljni svet u vecini situacija ne zna nista o klasi, on moze da im pristupa i menja pomocu
+	gettera i settera 
+
+-	REFLEKSIJA = imamo private metodu ili private polje i mozemo da kazemo da ovo vise nije private vec public
+	-	mogu preko refleksije da pokupim neki metod koji je privatan, i da kazem e nisi vise ti privatan vec javan
+		to mogu da radim tokom izvrsavanja samog programa
+	-	predstavlja mehanizam koji omogucava programu da dinamicki pregleda i modifikuje svoju strukturu tokom izvrsavanja
+		korisna je kada nam unapred nije poznata struktura podataka ili klasa, kao npr dinamicko ucitavanje klase
+		(inspekcija klasa i objekata, dinamicko povezivanje metoda, manipulacija atributima)
+
+
+-	Dobra praksa je da API(skup metoda i funkcija i polja koja pruzamo korisniku) bude sto jednostavniji,
+	to znaci da korisniku treba da prizimo sto jednostavniji API za rad, 
+	sto konciznije, sto manje podataka pruzam spoljnom svetu to je lakse i za spolji svet da koristi i to 
+	smo mi bezbedniji da neko ne moze da napravi neku glupost u kodu.
+	KONCIZNO, JASNO I PRECIZNO!
+
+	BITNO JE NAPISATI DOBAR KOD!
+	KOD MORA DA BUDE KRATAK I JASAN
+	CODE REVIEW 
+
+-- --------------------------------------------------------------------------------------------------------
+
+*	NASLEDJIVANJE *
+
+-	STATICKA PROMENLJIVA JE PROMENLJIVA KOJA NIJE VEZANA ZA INSTANCU, OVA PROMENLJIVA JE VEZANA ZA KLASU
+	- 	to znaci da ta promenljiva nije vezana za konkretnu tacku t niti t1, vec je ona zajednicka za sve tacke
+	-	one se ne cuvaju u memoriji, nije deo klase niti objekta, vec se cuva u posebnoj lokaciji i vezana je
+		za konkretnu klasu 
+	-	zajednicka je za sve instance klase Tacka
+	-	NE ZAVISE OD INSTANCE, NE NALAZE SE U MEMORIJI UNUTAR INSTANCE, NEMAJU VEZE SA KONKRETNOM INSTANCOM
+		IMAJU VEZE SA KONKRETNOM KLASOM I ZAJEDNICKE SU ZA SVE INSTANCE ODREDJENE KLASE
+		NE MOZEMO JE POZIVATI PREKO t1.brojTacaka --> hocu da iz konkretne instance izvucem nesto, ali to je 
+		nemoguce
+	-	JEDINI NACIN KAKO MOGU DA PRISTUPIM STATIC PROMENLJIVOJ JE PREKO SAME KLASE: Tacka.brojTacaka
+	-	staticke promenljive se automatski inicijalizuju na default-ne vrednosti
+
+
+-	STATICKI BOLK NAM SLUZI UKOLIKO IMAMO NEKO PONASANJE SVIH KLASA KOJE MORA DA SE DESI PRE NEGO STO SE
+	BILO KOJA KLASA INSTANCIRA
+	-	DOK JOS NISMO NAPRAVILI NIJEDNU KALSU PRILIKOM POCETKA RADA PROGRAMA, MORA DA SE IZVRSI NEKI POSAO
+		KOJI JE VEZAN ZA KLASU, A TO JE OBICNO VEZANO ZA STATICKE PREOMENLJIVE
+
+	-	PRILIKOM POKRETANJA PROGRAMA, PRVO SE IZVRSE SVI STATICKI BOLOKOVI!! 
+		-	JAVA VIRTUELNA MASINA PRONADJE SVE STATICKE BLOKOVE KOJI POSTOJE U PROGRAMU, 
+			I SAMA IH POZIVA
+
+	-	TO JE OBICNO NEKA KOMPLEKSNIJA INICIJALIZACIJA STATICKIH PROMENLJIVIH
+
+	-	ZASTO JE MAIN STATICKA FUNCKIJA?
+		-	MAIN JE STATICKA FUNKCIJA ZATO STO, AKO NE BI BILA STATICKA MORALI BISMO DA JE 
+			POZOVEMO PREKO INSTANCE, A DA BI SE NAPRAVILA INSTANCA PROGRAM MORA DA RADI
+			JER PROSTO OVO SE SVE DESAVA TOKOM IZVRSAVANJA PROGRAMA, KREIRA SE NOVA
+			PROMENLJIVA TEK KAD PORGRAM KRENE DA SE IZVRSAVA. A DA BI PROGRAM KRENUO DA SE 
+			IZVRSAVA, ON MORA DA POCEN DA RADI, A DA BI POCEO DA RADI TREBA MU MAIN. I ONDA
+			ULAZIMO U ZACARANI KRUG. 
+
+			AKO MAIN NE BI BILA STATICKA, MORALI BISMO DA JE POZOVEMO PREKO INSTANCE, 
+			DA BI SE NESTO INSTANCIRALO PROGRAM MORA DA POCNE DA RADI, A DA BI PROGRAM
+			POCEO DA RADI TREBA MU MAIN. I TAKO SE VRTIMO U KRUG, NE BISMO NIKADA 
+			USPELI DA POKRENEMO PORGRAM.
+
+			START POZIVA MAIN
+
+	-	NAPOMENA: NE MOZEMO NE STATICKU METODU DA POZOVEMO IZ STATICKE METODE!
+
+	-	IZ NESTATICKIH METODA MOZEMO DA PRISTUPIMO STATICKIM, 
+		A IZ STATICKIH NE MOZEMO NE STATICKIM	
+		-	STATICKA PROMENLJIVA SE VIDI U INSTANCI 
+		-	AKO JE NESTO STATICKO, ONO JE U POTPUNOSTI ODVOJENO OD SVIH INSTANCI
+			I NE NALAZI SE UNUTAR INSTANCE, I ONDA NE MOZE DA VIDI STA SE NALAZI 
+			UNUTAR INSTANCE, VEC MOZE DA VIDI SAMO ONO STO SE NALAZI U NJEGOVOM 
+			OKRUZENJU, ODNOSNO ONO STO JE VEZANO ZA SVE INSTANCE.
+
+		-	STATIC JE NESTO STO SE NALAZI VAN NAS NIJE MOJA MISAO I NE MOZE DA VIDI
+			MOJE MISLI, ALI SA DRUGE STRANE MI KAO MI, NASE MISLI MOGU DA BUDU VEZANE
+			ZA NESTO STATICKO JER SE ONO NALAZI VAN NAS, NASIH MISLI I VIDLJIVO JE
+			DA IM PRISTUPIMO
+		
+-	NASLEDJIVANJE
+	-	IMAMO VECI BROJ KLASA KOJE IMAJU NESTO ZAJEDNICKO
+		NPR. IMAMO KLASU KucniLjubimac, SVAKI KUCNI LJUBIMAC MOZE DA SE OGLASAVA 
+		NA ODREDJENI NACIN, DA MJAUCE, LAJE, KUKURICE..
+		MOZE DA IMA IME, I MOZE DA IMA NEKA PONASANJA KOJA SU SPECIFICNA ZA NJEGA
+
+	-	NASLEDJIVANJE NAM POMAZE SAMO DA PISEMO LEPSI KOD,
+		KOD JE BOLJI, KOD JE LEPSE NAPISAN.
+
+	-	NEMA DUPLIRANJA MNOGO PODATAKA, NEMA DUPLIRANJA LINIJA KODA I SLICNO
+
+	-	CIM IMAMO POTREBU ZA DUPLIRANJEM KODA, TO ZNACI DA SMO NESTO ZEZNULI 
+		I DA TREBA DA PISEM FUNKCIJU ZA TO
+
+	-	NAPRAVIMO JEDNU NATKLASU - KLASU KOJA JE GENERALIZACIJA 
+		DEFINISEM SVE PROMENLJIVE KOJE SU ZAJEDNICKE ZA SVE PODKLASE
+		I TE PROMENLJIVE SU VIDLJIVE U SVIM POTKLASAMA
+
+
+-	COPY KONSTRUKTOR 
+	-	DA OD VEC POSTOJECE TACKE NAPRAVIMO DRUGU TACKU, ODNOSNO
+		DA OD VEC POSTOJECEG OBJEKRTA NAPRAVIMO DRUGU OBJEKAT
+	-	HOCU DA NAPRAVIM ISTI OBJEKAT I DA NJEMU PROMENIM PONASANJE, DA NESTO
+		IZMENIM ILI DODATNO URADIM. MOZEMO DA OD VEC GOTOVE INSTANCE KLASE U 
+		KOJO SE NALAZIM NAPRAVIM NOVU INSTANCU ISTE TE KLASE. 
+
+	- 	this(t.x, t.y)
+		this JE REFERENCA NA SAMOG SEBE. 
+
+-	public Oblik(Tacka centar) {
+        this.centar = centar; // ovo nikada ne treba da radimo!!! rekla sam samo da se preusmeri referenca
+    }
+
+    BITNO JE DA NAPRIAVIMO NOVU TACKU, A NE DA PREUSMERAVAMO POKAZIVACE, REFERENCU
+
+    -	SVE STO NIJE PRIMITIVNI TIP, SVE STO SU KLASE SU REFERENCE!!!
+    	STO ZNACI DA SAM JA OVAKO SAMO DOBILA POKAZIVAC, ADRESU TACKE centar
+    	I TIME SAM REKLA DA JE MOJ this.centar ZAPRAVO centar, NISAM NAPRAVILA
+    	NOVU TACKU, VEC SAM REKLA CENATR OVOG MOG OBILA JE ISTA OVA TACKA, AKO 
+    	NA NEKOM MESTU PROMENIM TACKU, TO AUTOMATSKI ZANCI DA SAM JA PROMENILA 
+    	I OBLIK, ALI TO NE TREBA!
+
+
+-	AKO NEKA KLASA NASLEDJUJE NEKU KLASU, UVEK MORA DA SE POZIVA KONSTRUKTOR NATKLASE!
+
+-	`super`	PREDSTAVLJA REFERENCU NA RODITELJSKU KLASU
+	-	KONSTRUKTOR NATKLASE MORA DA BUDE PRVA NAREDMA U KOSTRUKTORU DETETA
+
+-- -------------------------------------------------------------------------------------------------------------
+
+		*	APSTRAKTNE KLASE, POLIMORFIZAM	*
+
+-	AKO PROSLEDJUJEMO BILO KOJI TIP KOJI NIJE PRIMITIVAN, VEC JE REFERENCNI TIP, KONSTRUKTORIMA ILI BILO GDE
+	NE SMEMO DA STAVLJAMO SAMO JEDNAKO JE TOM PRIMITIVNOM TIPU, VEC MORAMO DA PRAVIMO NOVI OBJEKAT.
+	ZBOG TOGA STO IMAMO REFERENCNI TIP, I ZATO STO AKO PROMENIMO BILO STA UNUTAR KLASE MENJA SE I ORIGINALNA
+	PROMENLJIVA KOJU SMO KREIRALI, I OBRNUTO, AKO PROMENIMO ORIGINALNU PROMENLJIVU PROMENICE SE I U SAMOJ KLASI
+	A TO U 99% SITUACIJA NE ZELIMO DA URADIMO.
+
+-	@Override = PREVZAZIDJI METOD IZ NATKLASE, ZOVE SE ISTO ALI JE IMPLEMENTACIJA DURGACIJA, MOZE DA BUDE ISTA 
+	LOGIKA IMPLEMENTACIJE
+	OVO JE METOD IZ NATKLASE, I JA PRAVIM NOVU ZA POTKLASU
+
+-	KLASA CE POSTATI APSTRAKTNA ONOG TRENUTKA KADA MI STVARNO DEKLARISEMO NEKU APSTRAKTNU FUNKCIJU/METODU
+
+-	KADA NEKA KLASA NASLEDJUJE APSTRAKTNU KLASU, I ONA MORA DA IMPLEMETIRA APSTRAKTNE METODE KOJE
+	NATKLASA IMA, NEMA DRUGOG NACINA ILI DA I NJU DEKLARISEM DA BUDE APSTRAKTNA KLASA.
+	MORA NJENA POTKLASA DA DEFINISE TAJ METOD.
+
+-	APSTRAKTNA KLASA NE MOZE DA SE INSTANCIRA!
+	APSTRAKTNE KLASE SLUZE DA DEFINISU NEKO PONASANJE. 
+
+-	KLASU Object NASLEDJUJU SVE KLASE!
+
+-	OPERATOR `instanceof` PROVERAVA DA LI JE INSTANCA NEKE KLASE ILI KLASE KOJA JE U HIJERARHIJI NASLEDJIVANJA TE KLASE.
+	if (niz[i] instanceof Pravougaonik)
+		broj++;
+
+	BROJI PRAVOUGAONIKE I KVADRATE (KVADRAT JESTE PRAVOUGAONIK)
+
+	`getClass()` = DA DOBIJEMO INFORMACIJU O RUNTIME TIPU OBJEKTA. 
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------
+
+				*	INTERFEJSI 	*
+
+-	INTERFEJSI NAM KAO I APSTRAKTNE KLASE, OMOGUCAVAJU DA DEFINISEMO NEKO PONASANJE ODNOSNO NEKI
+	SKUP PONASANJA KOJI NASI OBJEKTI MORAJU DA PRATE I NESTO STO NASI OBJEKTI, GENERALNO KLASE KOJE
+	IMPOLEMENTIRAJU TJ. NASLEDJUJU INTERFEJSE.
+	KADA JE U PITANJU INTERFEJS NE GOVORI SE NASLEDJIVANJE INTERFEJSA, VEC IMPLEMENTACIJA INTERFEJSA.
+	ZAJEDNICKO ZA APSTRAKTNE KLASE I INTERFEJSE JE TO STO ONI NE MOGU BITI INSTANCIRANI. 
+
+-	INTERFEJS NIKADA I NI U KOM SMISLU NE MOZE BITI INSTANCIRAN TJ. NIKADA NE MOZE BITI INSTANCIRAN, 
+	DOK RECIMO APSTRAKTNA KLASA SE MOZE DO NA IMPLEMENTACIJU METODA MOZE INSTANCIRATI.
+
+-	DEFINISU NAM NEKO ODREDJEN SKUP PONASANJE KOJE MORAJU ZADOVOLJITI 
+
+-	KOD NASLEDJIVANJA JEDNA KLASA MOZE DA NASLEDI JEDNU JEDINU KLASU, DOK KOD INTERFEJSA, 
+	JEDNA KLASA MOZE DA IMPLEMENTIRA VECI BROJ INTERFEJSA
+
+
+		PROBLEM DIJAMANTA
+			A
+		  /    \
+		B x 	C x 					
+		  \		/
+		 	 D 				
+
+		KADA KAZEMO D.getX() O KOM TACNO X-U SE RADI?
+		
+
+-	UNUTAR INTERFEJSA IMAMO ISKLJUCIVO DEKLARACIJU FUNKCIJA, A NE I NJIHOVU IMPLEMENTACIJU!
+	NAVOIDMO ISKLJUCIVO NJIHOVO IME I POVRATNI TIP!
+
+-	DA BI  NEKA KLASA IMPLEMENTIRALA INTERFEJS MORA DA SE NAVEDE KLJUCNA REC `implements` 
+
+-	U INTERFEJSU NE MOGU DA IMAM INSTANCNE PROMENLJIVE, NPR: int x;
+	TO NE MOGU DA IMAM UNUTAR INTERFEJSA. ALI MOGU DA IMAM KONSTANTE NPR: int x = 5;
+	AKO ZELIM DA IMAM BAS KONSTANTE ONDA SE ONE NAVODE NA SLEDECI NACIN:
+
+		final int x = 5;	
+
+	NE MOZEMO DA CUVAMO INSTANCNE PROMENLJIVE ZBOG TOGA STO BI ONE TREBALE DA SE INSTANCIRAJU, 
+	ALI MI INTERFEJS NE MOZEMO DA INSTANCIRAMO. 
+	TAKODJE NE MOZEMO DA DEFINISEMO PROMENLJIVE KOJE CE DA NASLEDE KLASE, JRE NEMAMO NASLEDJIVANJE
+	VEC IMAMO SAMO IMPLEMENTACIJU. 
+
+	KADA NASLEDIMO APSTRAKTNU KLASU IZ NJE POKUPIMO SVE ATRIBUTE, ZNACI SVE ATRIBUTE KOJE JE IMALA
+	APSTRAKTNA NATKLASA, IMA I NJENA POTKALSA KOJA JE NASLEDJUJE.
+
+-	INTERFEJSI MOGU MEDJUSOBNO DA SE NASLEDJUJU.
