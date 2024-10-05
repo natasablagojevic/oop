@@ -1,4 +1,7 @@
 package jezici;
 
-public class Srpski {
+public interface Srpski {
+    void zdravo();
+    void dovidjenja();
+    void hvala();
 }
