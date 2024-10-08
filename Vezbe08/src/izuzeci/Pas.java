@@ -1,15 +1,15 @@
 package izuzeci;
 
-public class Pas implements Cloneable{
+public class Pas extends Zivotinja implements Cloneable{
     private Buva buva;
     private String ime;
     private String rasa;
 
     public Pas() {
-//        super();
+        super();
     }
 
-    public Pas(Buva buva, String ime, String rasa) {
+    public Pas(String ime, String rasa) {
         this.ime = ime;
         this.rasa = rasa;
         this.buva = new Buva("Buvica", "Neka vrsta buvice");
@@ -25,6 +25,10 @@ public class Pas implements Cloneable{
 
     public String getRasa() {
         return this.rasa;
+    }
+
+    public Buva getBuva() {
+        return this.buva;
     }
 
     public void setBuva(Buva buva) {
